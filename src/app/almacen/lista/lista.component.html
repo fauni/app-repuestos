@@ -1,0 +1,15 @@
+<section class="content">
+    <div class="content-block">
+        <div class="block-header">
+            <!-- breadcrumb -->
+            <app-breadcrumb [title]="'Almacen'" [items]="['Almacen']" [active_item]="'Listado'"></app-breadcrumb>
+        </div>
+
+        <div>
+            <pre>
+                {{ almacenes | json }}
+            </pre>
+        </div>
+
+    </div>
+</section>

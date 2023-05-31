@@ -1,0 +1,140 @@
+<section class="content">
+    <div class="content-block">
+        <div class="block-header">
+            <!-- breadcrumb -->
+            <app-breadcrumb [title]="'Movimientos'" [items]="['Movimientos']" [active_item]="'Listado'"></app-breadcrumb>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="materialTableHeader">
+                        <div class="left">
+                          <ul class="header-buttons-left ms-0">
+                            <li class="tbl-title">
+                              <h2>Movimientos</h2>
+                            </li>
+                            <li class="tbl-search-box">
+                              <label for="search-input"><i class="material-icons search-icon">search</i></label>
+                              <input placeholder="Buscar" type="text" #filter class="browser-default search-field"
+                                aria-label="Search box">
+                            </li>
+                          </ul>
+                        </div>
+                        <div class="right">
+                          <ul class="tbl-export-btn">
+                            <li class="tbl-header-btn">
+                              <div class="m-l-10" matTooltip="ADD">
+                                <button mat-mini-fab color="primary" (click)="nuevoMovimiento()">
+                                  <mat-icon class="col-white">add</mat-icon>
+                                </button>
+                              </div>
+                            </li>
+                            <li class="tbl-header-btn">
+                              <div class="m-l-10" matTooltip="REFRESH">
+                                <button mat-mini-fab color="primary" (click)="refresh()">
+                                  <mat-icon class="col-white">refresh</mat-icon>
+                                </button>
+                              </div>
+                            </li>
+                            <li class="tbl-header-btn">
+                              <div class="m-l-10" [hidden]=selection matTooltip="DELETE">
+                                <button mat-mini-fab color="warn">
+                                  <mat-icon class="col-white">delete
+                                  </mat-icon>
+                                </button>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="export-button m-l-10" matTooltip="XLSX">
+                                <img src="assets/images/icons/xlsx.png" alt=""/>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                    </div>
+                    <div class="body overflow-auto">
+                        <div class="responsive_table">
+                            <table mat-table #table [dataSource]="dataSource" matSort class="mat-cell"> 
+                                <ng-container matColumnDef="fecha">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha
+                                    </mat-header-cell>
+                                    <mat-cell *matCellDef="let row">{{row.fecha | date: 'dd/MM/yyyy' }}</mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="producto">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Producto
+                                    </mat-header-cell>
+                                    <mat-cell *matCellDef="let row"> <span class="mobile-label">Producto:</span>{{row.producto.codigo}} - {{row.producto.nombre}}
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="lote">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Lote
+                                    </mat-header-cell>
+                                    <mat-cell *matCellDef="let row"> <span class="mobile-label">Lote:</span>{{row.lote}}</mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="almacen">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Almacen
+                                    </mat-header-cell>
+                                    <mat-cell *matCellDef="let row"> <span class="mobile-label">Almacen:</span>{{row.almacen.nombre}}
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="valor">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Cantidad
+                                    </mat-header-cell>
+                                    <mat-cell *matCellDef="let row"> <span class="mobile-label">Cantidad:</span>
+                                        {{ row.tipo_movimiento.id == 1 ? row.valor : row.valor *(-1) }}
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="precio">
+                                  <mat-header-cell *matHeaderCellDef mat-sort-header>Precio
+                                  </mat-header-cell>
+                                  <mat-cell *matCellDef="let row"> <span class="mobile-label">Precio:</span>{{row.precio}}
+                                  </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="descripcion">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Descripción
+                                    </mat-header-cell>
+                                    <mat-cell *matCellDef="let row"> <span class="mobile-label">Descripción:</span>{{row.descripcion}}
+                                    </mat-cell>
+                                  </ng-container>
+                                <ng-container matColumnDef="tipo_movimiento">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Tipo de Movimiento
+                                    </mat-header-cell>
+                                    <mat-cell *matCellDef="let row"> <span class="mobile-label">Tipo de Movimiento:</span>{{row.tipo_movimiento.descripcion}}
+                                    </mat-cell>
+                                </ng-container>
+                                <mat-header-row *matHeaderRowDef="columns">
+                                </mat-header-row>
+                                <mat-row *matRowDef="let row; columns: columns;" (click)="detalleMovimiento(row)" [style.cursor]="'pointer'" matRipple>
+                                </mat-row>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="body overflow-auto">
+                        <div class="responsive_table">
+                          
+                          <div *ngIf="status==='loading'" class="tbl-spinner">
+                            <mat-progress-spinner color="primary" [diameter]="40" mode="indeterminate">
+                            </mat-progress-spinner>
+                          </div>
+                          <div *ngIf="status==='failed'" class="no-results"
+                            [style.display]="movimientos.length === 0 ? '' : 'none'">
+                            No results
+                          </div>
+                          <mat-paginator #paginator length="5" [pageIndex]="0" [pageSize]="10"
+                            [pageSizeOptions]="[5, 10, 25, 100]">
+                          </mat-paginator>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div>
+            <pre>
+                {{ dataSource.originalData | json }}
+            </pre>
+        </div> -->
+
+    </div>
+</section>
