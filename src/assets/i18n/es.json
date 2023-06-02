@@ -33,6 +33,8 @@
     "INVENTARIO":{
       "TEXT":"Inventario",
       "LIST": {
+        "STOCK": "Stock",
+        "STOCKLOTE": "Stock por Lote",
         "MOVIMIENTOS": "Movimientos",
         "CORRECCIONSTOCK": "Corrección de Stock",
         "TRANSFERENCIASTOCK": "Transferencia de Stock"

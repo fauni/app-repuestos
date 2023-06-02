@@ -371,3 +371,28 @@ textarea:-ms-input-placeholder {
     max-width: 100%;
   }
 }
+
+
+// Tablas
+.tabla-generica{
+  border-collapse: collapse;
+  border: 1px solid #bdc3c7;
+  box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.2), -1px -1px 8px rgba(0, 0, 0, 0.2);
+}
+
+.tabla-generica tr {
+    transition: all .2s ease-in;
+    cursor: pointer;
+}
+
+.tabla-generica th,td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.tabla-generica tr:hover {
+  background-color: #f5f5f5;
+  transform: scale(1.00);
+  box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.2), -1px -1px 8px rgba(0, 0, 0, 0.2);
+}

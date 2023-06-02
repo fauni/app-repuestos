@@ -20,6 +20,10 @@ export class InventarioService extends UnsubscribeOnDestroyAdapter{
     return this.httpClient.get<Movimiento[]>(`${this.API}/movimientostock/lista`);
   }
 
+  getMovimientosAlmacen(id: number): Observable<Movimiento[]> {
+    return this.httpClient.get<Movimiento[]>(`${this.API}/movimientostock/almacen/${id}`);
+  }
+
   guardarMovimientoStock(data: Movimiento, lote: boolean){
     if(lote){
       return this.httpClient.post(`${this.API}/movimientostocklote/create`, data);

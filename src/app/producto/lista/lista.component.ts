@@ -18,7 +18,7 @@ export class ListaComponent extends UnsubscribeOnDestroyAdapter implements OnIni
   selection: Boolean = false;
 
   dataSource = new DataSourceProducto();
-  columns: string[] = ['id', 'codigo', 'nombre', 'descripcion', 'stock', 'estado'];
+  columns: string[] = ['imagen_url', 'codigo', 'nombre', 'descripcion', 'stock', 'estado', 'actions'];
   producto:Producto | null = null;
 
   constructor(
@@ -68,6 +68,14 @@ export class ListaComponent extends UnsubscribeOnDestroyAdapter implements OnIni
   }
 
   detalleProducto(row: Producto){
+    this.router.navigate(['/producto/detalle/', row.id]);
+  }
+
+  modificarProducto(row: Producto){
+    console.log(row);
+  }
+
+  eliminarProducto(row: Producto){
     console.log(row);
   }
 

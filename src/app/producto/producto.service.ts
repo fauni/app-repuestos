@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Producto } from './models/producto.model';
 import { ProductoLote } from './models/productolote.model';
+import { ProductoBatch } from './models/productobatch.model';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +28,11 @@ export class ProductoService extends UnsubscribeOnDestroyAdapter{
     return this.httpClient.get<Producto[]>(`${this.API}/producto/lista`);
   }
 
+  getDetalleProducto(id: number): Observable<Producto>{
+    return this.httpClient.get<Producto>(`${this.API}/producto/detail/${id}`);
+  }
+
+
   guardarProducto(data: FormData){
     return this.httpClient.post(`${this.API}/producto/create`, data);
   }
@@ -34,6 +40,22 @@ export class ProductoService extends UnsubscribeOnDestroyAdapter{
   //#region PRODUCTO LOTE
   getLotesPorProducto(id_producto: number):Observable<ProductoLote[]> {
     return this.httpClient.get<ProductoLote[]>(`${this.API}/producto-lote/lista/${id_producto}`);
+  }
+  //#endregion
+
+  //#region PRODUCTO LOTE
+  getProductoBatchPorProducto(id_producto: number):Observable<ProductoBatch[]> {
+    return this.httpClient.get<ProductoBatch[]>(`${this.API}/producto-batch/lista/${id_producto}`);
+  }
+  //#endregion
+
+  //#region 
+  getStockProductos(): Observable<Producto[]>{
+    return this.httpClient.get<Producto[]>(`${this.API}/stock/lista`);
+  }
+
+  getStockProductoLote():Observable<ProductoBatch[]> {
+    return this.httpClient.get<ProductoBatch[]>(`${this.API}/stock-lote/lista`);
   }
   //#endregion
 }

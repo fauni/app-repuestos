@@ -1,0 +1,124 @@
+<section class="content">
+    <div class="content-block">
+        <div class="block-header">
+            <!-- breadcrumb -->
+            <app-breadcrumb [title]="'Stock por Lote'" [items]="['Inventario', 'Stock']" [active_item]="'Listado'"></app-breadcrumb>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="materialTableHeader">
+                        <div class="left">
+                          <ul class="header-buttons-left ms-0">
+                            <li class="tbl-title">
+                              <h2>Stock de Productos</h2>
+                            </li>
+                            <li class="tbl-search-box">
+                              <label for="search-input"><i class="material-icons search-icon">search</i></label>
+                              <input placeholder="Buscar" type="text" #filter class="browser-default search-field"
+                                aria-label="Search box">
+                            </li>
+                          </ul>
+                        </div>
+                        <div class="right">
+                          
+                        </div>
+                    </div>
+                    <div class="body overflow-auto">
+                        <div class="responsive_table">
+                            <table mat-table #table [dataSource]="dataSource" matSort class="mat-cell"> 
+                                <ng-container matColumnDef="imagen_url">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Producto
+                                    </mat-header-cell>
+                                    <mat-cell *matCellDef="let row">
+                                      <!-- {{row.imagen_url}} -->
+                                      <img class="imagen-producto" [src]="row.producto_stock.producto.imagen_url.replace('localhost:8000','localhost')" alt="" srcset="">
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="codigo_producto">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Codigo
+                                    </mat-header-cell>
+                                    <mat-cell *matCellDef="let row"> <span class="mobile-label">Codigo:</span> {{row.producto_stock.producto.codigo}}
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="producto">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Producto
+                                    </mat-header-cell>
+                                    <mat-cell *matCellDef="let row"> <span class="mobile-label">Producto:</span>{{row.producto_stock.producto.nombre}} - {{row.producto_stock.producto.descripcion}}
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="almacen">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Almacen
+                                    </mat-header-cell>
+                                    <mat-cell *matCellDef="let row"> <span class="mobile-label">Almacen:</span>{{row.producto_stock.almacen.nombre}}
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="lote">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Lote
+                                    </mat-header-cell>
+                                    <mat-cell *matCellDef="let row"> <span class="mobile-label">Lote:</span>{{row.lote}}
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="fecha_limite_venta">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha limite de venta
+                                    </mat-header-cell>
+                                    <mat-cell *matCellDef="let row"> <span class="mobile-label">Fecha limite de venta:</span>{{row.fecha_limite_venta | date: 'dd/MM/yyyy'}}
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="fecha_vencimiento">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha de Vencimiento
+                                    </mat-header-cell>
+                                    <mat-cell *matCellDef="let row"> <span class="mobile-label">Fecha de Vencimiento:</span>{{row.fecha_vencimiento | date: 'dd/MM/yyyy'}}
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="stock">
+                                  <mat-header-cell *matHeaderCellDef mat-sort-header>Stock
+                                  </mat-header-cell>
+                                  <mat-cell *matCellDef="let row"> <span class="mobile-label">Stock:</span>{{row.valor}}
+                                  </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="actions">
+                                  <mat-header-cell *matHeaderCellDef mat-sort-header>Acciones</mat-header-cell>
+                                  <!-- <mat-cell *matCellDef="let row"> <span class="mobile-label">Estado:</span>{{row.estado.estado}}</mat-cell> -->
+                                  <mat-cell *matCellDef="let row; let i=index;" class="psl-3 tbl-col-width-per-10">
+                                    <button mat-button color="primary">
+                                        <span>Movimientos</span>
+                                    </button>
+                                  </mat-cell>
+                                </ng-container>
+                                <mat-header-row *matHeaderRowDef="columns">
+                                </mat-header-row>
+                                <mat-row *matRowDef="let row; columns: columns;" [style.cursor]="'pointer'" matRipple>
+                                </mat-row>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="body overflow-auto">
+                        <div class="responsive_table">
+                          <!-- Loading spinner -->
+                          <div *ngIf="status==='loading'" class="tbl-spinner">
+                            <mat-progress-spinner color="primary" [diameter]="40" mode="indeterminate">
+                            </mat-progress-spinner>
+                          </div>
+                          <div *ngIf="status==='loading'" class="no-results"
+                            [style.display]="productos_batch.length === 0 ? '' : 'none'">
+                            No se encontro resultados
+                          </div>
+                          <mat-paginator #paginator length="5" [pageIndex]="0" [pageSize]="10"
+                            [pageSizeOptions]="[5, 10, 25, 100]">
+                          </mat-paginator>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div>
+            <pre>
+                {{ dataSource | json }}
+            </pre>
+        </div> -->
+
+    </div>
+</section>

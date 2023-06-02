@@ -9,12 +9,18 @@ import { ComponentsModule } from '../shared/components/components.module';
 import { SharedModule } from '../shared/shared.module';
 import { NuevoComponent } from './nuevo/nuevo.component';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
+import { DetalleComponent } from './detalle/detalle.component';
+import { StockComponent } from './stock/stock.component';
+import { StockLoteComponent } from './stock-lote/stock-lote.component';
 
 
 @NgModule({
   declarations: [
     ListaComponent,
-    NuevoComponent
+    NuevoComponent,
+    DetalleComponent,
+    StockComponent,
+    StockLoteComponent
   ],
   imports: [
     CommonModule,

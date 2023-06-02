@@ -1,0 +1,104 @@
+<section class="content">
+    <div class="content-block">
+        <div class="block-header">
+            <!-- breadcrumb -->
+            <app-breadcrumb [title]="'Detalle Producto'" [items]="['Inicio','Producto']" [active_item]="'Detalle'"></app-breadcrumb>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <div class="card">
+            <div class="header">
+                <button mat-icon-button color="primary" matTooltip="Volver a la pagina anterior" (click)="goBack()">
+                    <mat-icon>arrow_back_ios</mat-icon>
+                </button>
+                <div class="p-t-10">
+                    <h2>{{producto.nombre}} </h2>
+                </div>
+            </div>
+            <div class="body">
+                <div>
+                    <img class="imagen-producto" [src]="producto.imagen_url.replace('localhost:8000','localhost')" alt="" srcset="">
+                    <!-- {{ producto.imagen_url.replace('localhost:8000','localhost')}} -->
+                </div>
+                <div class="table-container">
+                    <table class="table full-width tabla-generica">
+                        <tbody>
+                            <tr>
+                                <td><span class="mat-subtitle-2">Codigo: </span> {{producto.codigo}}</td>
+                                <td><span class="mat-subtitle-2">Código de Barras: </span> {{ producto.codigo_barras }}</td>
+                            </tr>
+                            <tr>
+                                <td><span class="mat-subtitle-2">Nombre: </span>{{producto.nombre }}</td>
+                                <td><span class="mat-subtitle-2">Descripción de Producto: </span>{{ producto.descripcion }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <mat-tab-group>
+                    <mat-tab>
+                      <ng-template mat-tab-label>
+                        <mat-icon class="example-tab-icon">menu_open</mat-icon>
+                        Información General
+                      </ng-template>
+                      
+                      <table class="table full-width tabla-generica">
+                        <tbody>
+                            <tr>
+                                <td><span class="mat-subtitle-2">Usa Inventario: </span>{{producto.usa_inventarios }}</td>
+                                <td><span class="mat-subtitle-2">Usa Lotes: </span>{{producto.usa_lotes }}</td>
+                                <td><span class="mat-subtitle-2">Stock: </span>{{producto.stock }}</td>
+                                <td><span class="mat-subtitle-2">Stock Mínimo: </span>{{ producto.stock_minimo }}</td>
+                            </tr>
+                            <tr>
+                                <td><span class="mat-subtitle-2">Categoría: </span>{{producto.categoria.descripcion }}</td>
+                                <td><span class="mat-subtitle-2">Grupo: </span>{{ producto.grupo.descripcion }}</td>
+                                <td><span class="mat-subtitle-2">Proveedor: </span>{{ producto.proveedor.nombre }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    </mat-tab>
+                  
+                    <mat-tab>
+                        <ng-template mat-tab-label>
+                            <mat-icon class="example-tab-icon">view_kanban</mat-icon>
+                            Stock
+                        </ng-template>
+
+                        <table class="tabla-generica full-width">
+                            <thead>
+                                <tr>
+                                    <th>Almacen</th>
+                                    <th>Lote</th>
+                                    <th>Fecha Limite de Venta</th>
+                                    <th>Fecha de Caducidad</th>
+                                    <th>Cantidad</th>
+                                    <!-- <th>Precio</th> -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of productobatch">
+                                    <td>{{ item.producto_stock.almacen.nombre }}</td>
+                                    <td>{{ item.lote }}</td>
+                                    <td>{{ item.fecha_limite_venta | date: 'dd/MM/yyyy' }}</td>
+                                    <td>{{ item.fecha_vencimiento | date: 'dd/MM/yyyy' }}</td>
+                                    <td>{{ item.valor }}</td>
+                                    <!-- <td>{{ item. }}</td> -->
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <!-- <pre>
+                            {{ productobatch | json }}
+                        </pre> -->
+                    </mat-tab>
+                </mat-tab-group>
+
+            </div>
+          </div>
+        </div>
+      </div>
+</section>

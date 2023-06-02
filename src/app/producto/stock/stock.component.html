@@ -2,7 +2,7 @@
     <div class="content-block">
         <div class="block-header">
             <!-- breadcrumb -->
-            <app-breadcrumb [title]="'Producto'" [items]="['Producto']" [active_item]="'Listado'"></app-breadcrumb>
+            <app-breadcrumb [title]="'Stock'" [items]="['Inventario', 'Stock']" [active_item]="'Listado'"></app-breadcrumb>
         </div>
 
         <div class="row">
@@ -12,7 +12,7 @@
                         <div class="left">
                           <ul class="header-buttons-left ms-0">
                             <li class="tbl-title">
-                              <h2>Productos</h2>
+                              <h2>Stock de Productos</h2>
                             </li>
                             <li class="tbl-search-box">
                               <label for="search-input"><i class="material-icons search-icon">search</i></label>
@@ -22,35 +22,7 @@
                           </ul>
                         </div>
                         <div class="right">
-                          <ul class="tbl-export-btn">
-                            <li class="tbl-header-btn">
-                              <div class="m-l-10" matTooltip="ADD">
-                                <button mat-mini-fab color="primary" (click)="nuevoProducto()">
-                                  <mat-icon class="col-white">add</mat-icon>
-                                </button>
-                              </div>
-                            </li>
-                            <li class="tbl-header-btn">
-                              <div class="m-l-10" matTooltip="REFRESH">
-                                <button mat-mini-fab color="primary" (click)="refresh()">
-                                  <mat-icon class="col-white">refresh</mat-icon>
-                                </button>
-                              </div>
-                            </li>
-                            <li class="tbl-header-btn">
-                              <div class="m-l-10" [hidden]=selection matTooltip="DELETE">
-                                <button mat-mini-fab color="warn">
-                                  <mat-icon class="col-white">delete
-                                  </mat-icon>
-                                </button>
-                              </div>
-                            </li>
-                            <li>
-                              <div class="export-button m-l-10" matTooltip="XLSX">
-                                <img src="assets/images/icons/xlsx.png" alt=""/>
-                              </div>
-                            </li>
-                          </ul>
+                          
                         </div>
                     </div>
                     <div class="body overflow-auto">
@@ -88,34 +60,18 @@
                                   <mat-cell *matCellDef="let row"> <span class="mobile-label">Stock:</span>{{row.stock}}
                                   </mat-cell>
                                 </ng-container>
-                                <ng-container matColumnDef="estado">
-                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Estado
-                                    </mat-header-cell>
-                                    <mat-cell *matCellDef="let row"> <span class="mobile-label">Estado:</span>{{row.estado.estado}}
-                                    </mat-cell>
-                                </ng-container>
                                 <ng-container matColumnDef="actions">
                                   <mat-header-cell *matHeaderCellDef mat-sort-header>Acciones</mat-header-cell>
                                   <!-- <mat-cell *matCellDef="let row"> <span class="mobile-label">Estado:</span>{{row.estado.estado}}</mat-cell> -->
                                   <mat-cell *matCellDef="let row; let i=index;" class="psl-3 tbl-col-width-per-10">
-                                    <button mat-icon-button [matMenuTriggerFor]="menu" (click)="$event.stopPropagation()">
-                                      <mat-icon>more_vert</mat-icon>
+                                    <button mat-button color="primary">
+                                        <span>Movimientos</span>
                                     </button>
-                                    <mat-menu #menu="matMenu">
-                                      <button mat-menu-item (click)="modificarProducto(row)">
-                                        <i class="material-icons-two-tone align-middle msr-2">create</i>
-                                        <span>Modificar Producto</span>
-                                      </button>
-                                      <button mat-menu-item (click)="eliminarProducto(row)">
-                                        <i class="material-icons-two-tone align-middle msr-2">delete_forever</i>
-                                        <span>Eliminar Producto</span>
-                                      </button>
-                                    </mat-menu>
                                   </mat-cell>
                                 </ng-container>
                                 <mat-header-row *matHeaderRowDef="columns">
                                 </mat-header-row>
-                                <mat-row *matRowDef="let row; columns: columns;" (click)="detalleProducto(row)" [style.cursor]="'pointer'" matRipple>
+                                <mat-row *matRowDef="let row; columns: columns;" [style.cursor]="'pointer'" matRipple>
                                 </mat-row>
                             </table>
                         </div>
@@ -123,11 +79,11 @@
                     <div class="body overflow-auto">
                         <div class="responsive_table">
                           <!-- Loading spinner -->
-                          <div *ngIf="loading" class="tbl-spinner">
+                          <div *ngIf="status==='loading'" class="tbl-spinner">
                             <mat-progress-spinner color="primary" [diameter]="40" mode="indeterminate">
                             </mat-progress-spinner>
                           </div>
-                          <div *ngIf="loading" class="no-results"
+                          <div *ngIf="status==='loading'" class="no-results"
                             [style.display]="productos.length === 0 ? '' : 'none'">
                             No results
                           </div>

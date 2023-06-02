@@ -7,11 +7,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ComponentsModule } from '../shared/components/components.module';
 import { SharedModule } from '../shared/shared.module';
 import { AlmacenService } from './almacen.service';
+import { DetalleComponent } from './detalle/detalle.component';
 
 
 @NgModule({
   declarations: [
-    ListaComponent
+    ListaComponent,
+    DetalleComponent
   ],
   imports: [
     CommonModule,
