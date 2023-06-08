@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { MovimientosComponent } from './movimientos/movimientos.component';
 import { CorreccionStockComponent } from './correccion-stock/correccion-stock.component';
 import { TransferenciaStockComponent } from './transferencia-stock/transferencia-stock.component';
+import { MovimientoProductoComponent } from './movimiento-producto/movimiento-producto.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,10 @@ const routes: Routes = [
   {
     path: "transferencia-stock",
     component: TransferenciaStockComponent,
+  },
+  {
+    path: "movimientos-producto/:id",
+    component: MovimientoProductoComponent,
   },
 ];
 

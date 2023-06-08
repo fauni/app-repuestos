@@ -1,0 +1,84 @@
+<section class="content">
+    <div class="content-block">
+        <div class="block-header">
+            <!-- breadcrumb -->
+            <app-breadcrumb [title]="'Detalle Almacen'" [items]="['Inicio','Almacen']" [active_item]="'Detalle'"></app-breadcrumb>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <div class="card">
+            <div class="header">
+                <button mat-icon-button color="primary" matTooltip="Volver a la pagina anterior" (click)="goBack()">
+                    <mat-icon>arrow_back_ios</mat-icon>
+                </button>
+                <div class="p-t-10">
+                    <h2>Movimientos del Producto  </h2>
+                </div>
+            </div>
+            <div class="body">
+                <div class="table-container">
+                    <table mat-table #table [dataSource]="dataSource" matSort class="mat-cell"> 
+                        <ng-container matColumnDef="fecha">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let row">{{row.fecha | date: 'dd/MM/yyyy' }}</mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="producto">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>Producto
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let row"> <span class="mobile-label">Producto:</span>{{row.producto.codigo}} - {{row.producto.nombre}}
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="lote">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>Lote
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let row"> <span class="mobile-label">Lote:</span>{{row.lote}}</mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="almacen">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>Almacen
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let row"> <span class="mobile-label">Almacen:</span>{{row.almacen.nombre}}
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="valor">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>Cantidad
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let row"> <span class="mobile-label">Cantidad:</span>
+                                {{ row.tipo_movimiento.id == 1 ? row.valor : row.valor *(-1) }}
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="precio">
+                          <mat-header-cell *matHeaderCellDef mat-sort-header>Precio
+                          </mat-header-cell>
+                          <mat-cell *matCellDef="let row"> <span class="mobile-label">Precio:</span>{{row.precio}}
+                          </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="descripcion">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>Descripción
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let row"> <span class="mobile-label">Descripción:</span>{{row.descripcion}}
+                            </mat-cell>
+                          </ng-container>
+                        <ng-container matColumnDef="tipo_movimiento">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>Tipo de Movimiento
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let row"> <span class="mobile-label">Tipo de Movimiento:</span>{{row.tipo_movimiento.descripcion}}
+                            </mat-cell>
+                        </ng-container>
+                        <mat-header-row *matHeaderRowDef="columns">
+                        </mat-header-row>
+                        <mat-row *matRowDef="let row; columns: columns;" [style.cursor]="'pointer'" matRipple>
+                        </mat-row>
+                    </table>
+                </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- <pre>{{ almacen | json }}</pre> -->
+    </div>
+
+</section>

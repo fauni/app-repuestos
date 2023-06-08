@@ -51,6 +51,7 @@ export class ListaComponent extends UnsubscribeOnDestroyAdapter implements OnIni
       }
     });
   }
+  
   cargarDatos(): void{
     this.loading = true;
     
@@ -72,7 +73,7 @@ export class ListaComponent extends UnsubscribeOnDestroyAdapter implements OnIni
   }
 
   modificarProducto(row: Producto){
-    console.log(row);
+    this.router.navigate(['/producto/nuevo/', row.id]);
   }
 
   eliminarProducto(row: Producto){
@@ -80,6 +81,6 @@ export class ListaComponent extends UnsubscribeOnDestroyAdapter implements OnIni
   }
 
   nuevoProducto(){
-    this.router.navigate(['/producto/nuevo']);
+    this.router.navigate(['/producto/nuevo/0']);
   }
 }

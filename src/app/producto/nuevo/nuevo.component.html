@@ -11,7 +11,7 @@
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
           <div class="card">
             <div class="header">
-              <h2>Producto </h2>
+              <h2>{{productoId >0 ?'Modificar': 'Crear'}} Producto </h2>
             </div>
             <div class="body">
                 <form class="register-form m-4" [formGroup]="registrar" (ngSubmit)="onGuardar()" enctype="multipart/form-data">
@@ -87,7 +87,7 @@
                         <div class="col-3">
                             <mat-form-field class="example-full-width" appearance="fill">
                               <mat-label>Stock</mat-label>
-                              <input matInput formControlName="stock" type="number" class="example-right-align">
+                              <input matInput formControlName="stock" type="number" class="example-right-align" readonly>
                             </mat-form-field>
                         </div>
                         <div class="col-3">
@@ -141,7 +141,7 @@
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
                           <button class="btn-space" mat-raised-button color="primary"
                             [class.auth-spinner]="status === 'loading'"
-                            [disabled]="!registrar.valid">Guardar</button>
+                            [disabled]="!registrar.valid">{{productoId > 0 ?'Guardar Cambios': 'Guardar'}}</button>
                           <button type="button" mat-button>Cancelar</button>
                         </div>
                     </div>

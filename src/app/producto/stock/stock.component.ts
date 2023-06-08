@@ -53,6 +53,9 @@ export class StockComponent extends UnsubscribeOnDestroyAdapter implements OnIni
     });
   }
  
+  verDetalleMovimientos(producto:Producto){
+    this.router.navigate(['inventario/movimientos-producto', producto.id]);
+  }
   // detalleProducto(row: Producto){
   //   this.router.navigate(['/producto/detalle/', row.id]);
   // }

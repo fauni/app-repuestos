@@ -23,4 +23,12 @@ export class AlmacenService extends UnsubscribeOnDestroyAdapter{
   getDetalleAlmacen(id: number): Observable<Almacen>{
     return this.httpClient.get<Almacen>(`${this.API}/detail/${id}`);
   }
+
+  guardarAlmacen(data: Almacen){
+    return this.httpClient.post(`${this.API}/create`, data);
+  }
+
+  modificarAlmacen(almacenId:number, data: Almacen){
+    return this.httpClient.put(`${this.API}/update/${almacenId}`, data);
+  }
 }

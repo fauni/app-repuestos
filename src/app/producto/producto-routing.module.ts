@@ -21,7 +21,7 @@ const routes: Routes = [
     component: DetalleComponent,
   },
   {
-    path: "nuevo",
+    path: "nuevo/:id",
     component: NuevoComponent,
   },
   {

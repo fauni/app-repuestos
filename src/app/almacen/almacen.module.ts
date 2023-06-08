@@ -8,12 +8,14 @@ import { ComponentsModule } from '../shared/components/components.module';
 import { SharedModule } from '../shared/shared.module';
 import { AlmacenService } from './almacen.service';
 import { DetalleComponent } from './detalle/detalle.component';
+import { NuevoComponent } from './nuevo/nuevo.component';
 
 
 @NgModule({
   declarations: [
     ListaComponent,
-    DetalleComponent
+    DetalleComponent,
+    NuevoComponent
   ],
   imports: [
     CommonModule,

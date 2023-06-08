@@ -14,6 +14,15 @@
     "HOME": {
       "TEXT": "Inicio"
     },
+    "PROVEEDOR": {
+      "TEXT": "Proveedor"
+    },
+    "CATEGORIA": {
+      "TEXT": "Categoria"
+    },
+    "GRUPO": {
+      "TEXT": "Grupo"
+    },
     "ALMACEN":{
       "TEXT":"Almacen",
       "LIST": {

@@ -10,13 +10,15 @@ import { SharedModule } from '../shared/shared.module';
 import { ComponentsModule } from '../shared/components/components.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TransferenciaStockComponent } from './transferencia-stock/transferencia-stock.component';
+import { MovimientoProductoComponent } from './movimiento-producto/movimiento-producto.component';
 
 
 @NgModule({
   declarations: [
     MovimientosComponent,
     CorreccionStockComponent,
-    TransferenciaStockComponent
+    TransferenciaStockComponent,
+    MovimientoProductoComponent
   ],
   imports: [
     CommonModule,

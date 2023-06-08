@@ -61,11 +61,11 @@ export class ListaComponent extends UnsubscribeOnDestroyAdapter implements OnIni
   }
 
   nuevoAlmacen():void{
-
+    this.router.navigate(['/almacen/nuevo/0']);
   }
 
   modificarAlmacen(almacen: Almacen): void {
-
+    this.router.navigate(['/almacen/nuevo', almacen.id]);
   }
 
   eliminarAlmacen(almacen: Almacen): void {

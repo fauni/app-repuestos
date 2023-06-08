@@ -5,11 +5,11 @@ import {
   Validators
 } from '@angular/forms';
 import { ProductoService } from '../producto.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { CategoriaService } from 'src/app/categoria/categoria.service';
 import { RequestStatus } from 'src/app/core/models/request-status.model';
-import { Categoria, Grupo, Proveedor } from '../models/producto.model';
+import { Categoria, Grupo, Producto, Proveedor } from '../models/producto.model';
 import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroyAdapter';
 import { GrupoService } from 'src/app/grupo/grupo.service';
 import { ProveedorService } from 'src/app/proveedor/proveedor.service';
@@ -21,6 +21,8 @@ import { ProveedorService } from 'src/app/proveedor/proveedor.service';
 export class NuevoComponent extends UnsubscribeOnDestroyAdapter implements OnInit{
   registrar: UntypedFormGroup;
   status: RequestStatus = 'init';
+  productoId!: number;
+  producto!: Producto;
 
   producto_imagen_url!: string;
 
@@ -37,16 +39,17 @@ export class NuevoComponent extends UnsubscribeOnDestroyAdapter implements OnIni
     private categoriaService: CategoriaService,
     private grupoService: GrupoService,
     private proveedorService: ProveedorService,
+    private route: ActivatedRoute,
     private router: Router,
     private snackBar: MatSnackBar
   ){
     super();
 
     this.registrar = this.fb.group({
-      codigo: ['P0002', [Validators.required]],
-      codigo_barras: ['1231222321'],
-      nombre: ['P1', [Validators.required]],
-      descripcion: ['D1', [Validators.required]],
+      codigo: ['', [Validators.required]],
+      codigo_barras: [''],
+      nombre: ['', [Validators.required]],
+      descripcion: ['', [Validators.required]],
       unidad: [''],
       imagen_url: [''],
       usa_inventarios: [false],
@@ -67,6 +70,46 @@ export class NuevoComponent extends UnsubscribeOnDestroyAdapter implements OnIni
     this.obtenerCategorias();
     this.obtenerGrupos();
     this.obtenerProveedores();
+
+    this.route.params.subscribe(params => {
+      this.productoId = +params['id'];
+      if(this.productoId > 0)
+        this.loadData(this.productoId);
+    });
+    
+  }
+
+  loadData(productoId: number){
+    this.status = 'loading';
+    this.productoService.getDetalleProducto(productoId).subscribe({
+      next: data => {
+        this.producto = data;
+        this.registrar.controls['codigo'].setValue(this.producto.codigo);
+        this.registrar.controls['codigo_barras'].setValue(this.producto.codigo_barras);
+        this.registrar.controls['nombre'].setValue(this.producto.nombre);
+        this.registrar.controls['descripcion'].setValue(this.producto.descripcion);
+        this.registrar.controls['unidad'].setValue(this.producto.unidad);
+        this.registrar.controls['imagen_url'].setValue(this.producto.imagen_url);
+        this.registrar.controls['usa_inventarios'].setValue(this.producto.usa_inventarios);
+        this.registrar.controls['usa_lotes'].setValue(this.producto.usa_lotes);
+        this.registrar.controls['stock'].setValue(this.producto.stock);
+        this.registrar.controls['stock_minimo'].setValue(this.producto.stock_minimo);
+        this.registrar.controls['precio_compra'].setValue(this.producto.precio_compra);
+        this.registrar.controls['precio_venta'].setValue(this.producto.precio_venta);
+        this.registrar.controls['categoria'].setValue(this.producto.categoria.id);
+        this.registrar.controls['grupo'].setValue(this.producto.grupo.id);
+        this.registrar.controls['proveedor'].setValue(this.producto.proveedor.id);
+        this.registrar.controls['estado'].setValue(this.producto.estado.id);
+
+        this.status = 'success';
+      },
+      error: err => {
+        this.status= 'failed'
+      },
+      complete: ()=>{
+        this.status='init';
+      }
+    });
   }
 
   onFileSelected(event:any){
@@ -100,18 +143,34 @@ export class NuevoComponent extends UnsubscribeOnDestroyAdapter implements OnIni
     formData.append('proveedor', this.registrar.get('proveedor')?.value);
     formData.append('estado', this.registrar.get('estado')?.value);
 
-    this.productoService.guardarProducto(formData).subscribe({
-      next: data => {
-        this.status = 'success';
-        this.router.navigate(['producto/lista']);
-      },
-      error: err => {
-        this.status = 'failed';
-        this.showNotification('snackbar-danger', 'Ocurrio un error al guardar el producto, intente nuevamente.', 'bottom', 'center');
-        console.log(err);
-      },
-      complete: ()=>{}
-    })
+    if(this.productoId > 0) {
+      this.productoService.modificarProducto(this.productoId, formData).subscribe({
+        next: data => {
+          this.status = 'success';
+          this.showNotification('snackbar-success', 'Se guardaron los cambios correctamente!', 'bottom', 'center');
+          // this.router.navigate(['producto/lista']);
+        },
+        error: err => {
+          this.status = 'failed';
+          this.showNotification('snackbar-danger', 'Ocurrio un error al guardar el producto, intente nuevamente.', 'bottom', 'center');
+          console.log(err);
+        },
+        complete: ()=>{}
+      })
+    } else{
+      this.productoService.guardarProducto(formData).subscribe({
+        next: data => {
+          this.status = 'success';
+          this.router.navigate(['producto/lista']);
+        },
+        error: err => {
+          this.status = 'failed';
+          this.showNotification('snackbar-danger', 'Ocurrio un error al guardar el producto, intente nuevamente.', 'bottom', 'center');
+          console.log(err);
+        },
+        complete: ()=>{}
+      })
+    }
   }
 
   obtenerCategorias(){

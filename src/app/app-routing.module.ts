@@ -34,11 +34,6 @@ const routes: Routes = [
           import('./almacen/almacen.module').then((m) => m.AlmacenModule),
       },
       {
-        path: 'movimiento',
-        loadChildren: () =>
-          import('./movimiento/movimiento.module').then((m) => m.MovimientoModule),
-      },
-      {
         path: 'producto',
         loadChildren: () =>
           import('./producto/producto.module').then((m) => m.ProductoModule),
@@ -48,32 +43,21 @@ const routes: Routes = [
         loadChildren: () =>
           import('./inventario/inventario.module').then((m) => m.InventarioModule),
       },
-      // {
-      //   path: 'dashboard',
-      //   loadChildren: () =>
-      //     import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
-      // },
-      // {
-      //   path: 'advance-table',
-      //   loadChildren: () =>
-      //     import('./advance-table/advance-table.module').then(
-      //       (m) => m.AdvanceTableModule
-      //     ),
-      // },
-      // {
-      //   path: 'extra-pages',
-      //   loadChildren: () =>
-      //     import('./extra-pages/extra-pages.module').then(
-      //       (m) => m.ExtraPagesModule
-      //     ),
-      // },
-      // {
-      //   path: 'multilevel',
-      //   loadChildren: () =>
-      //     import('./multilevel/multilevel.module').then(
-      //       (m) => m.MultilevelModule
-      //     ),
-      // },
+      {
+        path: 'categoria',
+        loadChildren: () =>
+          import('./categoria/categoria.module').then((m) => m.CategoriaModule),
+      },
+      {
+        path: 'grupo',
+        loadChildren: () =>
+          import('./grupo/grupo.module').then((m) => m.GrupoModule),
+      },
+      {
+        path: 'proveedor',
+        loadChildren: () =>
+          import('./proveedor/proveedor.module').then((m) => m.ProveedorModule),
+      },
     ],
   },
   {
