@@ -25,7 +25,7 @@ export interface Categoria {
     created:     Date;
     modified:    Date;
     descripcion: string;
-    estado:      number;
+    estado:      Estado;
 }
 
 export interface Grupo {
@@ -33,7 +33,7 @@ export interface Grupo {
     created:     Date;
     modified:    Date;
     descripcion: string;
-    estado:      number;
+    estado:      Estado;
 }
 
 export interface Estado {
@@ -52,7 +52,7 @@ export interface Proveedor {
     nit:       string;
     contacto:  string;
     celular:   string;
-    estado:    number;
+    estado:    Estado;
 }
 
 // Converts JSON strings to/from your types

@@ -18,5 +18,17 @@ export class ProveedorService extends UnsubscribeOnDestroyAdapter{
   getProveedores(): Observable<Proveedor[]>{
     return this.httpClient.get<Proveedor[]>(`${this.API}/lista`);
   }
+
+  guardarProveedor(data: Proveedor){
+    return this.httpClient.post(`${this.API}/create`, data);
+  }
+
+  getDetalleProveedor(id: number): Observable<Proveedor>{
+    return this.httpClient.get<Proveedor>(`${this.API}/detail/${id}`);
+  }
+
+  modificarProveedor(id:number, data: Proveedor){
+    return this.httpClient.put(`${this.API}/update/${id}`, data);
+  }
 }
 

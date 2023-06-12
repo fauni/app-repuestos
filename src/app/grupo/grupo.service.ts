@@ -18,5 +18,17 @@ export class GrupoService extends UnsubscribeOnDestroyAdapter{
   getGrupos(): Observable<Grupo[]>{
     return this.httpClient.get<Grupo[]>(`${this.API}/lista`);
   }
+
+  guardarGrupo(data: Grupo){
+    return this.httpClient.post(`${this.API}/create`, data);
+  }
+
+  getDetalleGrupo(id: number): Observable<Grupo>{
+    return this.httpClient.get<Grupo>(`${this.API}/detail/${id}`);
+  }
+
+  modificarGrupo(id:number, data: Grupo){
+    return this.httpClient.put(`${this.API}/update/${id}`, data);
+  }
 }
 

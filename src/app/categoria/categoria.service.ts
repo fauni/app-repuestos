@@ -19,4 +19,16 @@ export class CategoriaService extends UnsubscribeOnDestroyAdapter{
   getCategorias(): Observable<Categoria[]>{
     return this.httpClient.get<Categoria[]>(`${this.API}/lista`);
   }
+
+  guardarCategoria(data: Categoria){
+    return this.httpClient.post(`${this.API}/create`, data);
+  }
+
+  getDetalleCategoria(id: number): Observable<Categoria>{
+    return this.httpClient.get<Categoria>(`${this.API}/detail/${id}`);
+  }
+
+  modificarCategoria(id:number, data: Categoria){
+    return this.httpClient.put(`${this.API}/update/${id}`, data);
+  }
 }
