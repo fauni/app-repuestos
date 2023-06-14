@@ -1,1 +1,55 @@
-<p>detalle works!</p>
+<section class="content">
+    <div class="content-block">
+        <div class="block-header">
+            <!-- breadcrumb -->
+            <app-breadcrumb [title]="'Detalle Almacen'" [items]="['Inicio','Almacen']" [active_item]="'Detalle'"></app-breadcrumb>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <div class="card">
+            <div class="header">
+                <button mat-icon-button color="primary" matTooltip="Volver a la pagina anterior" (click)="goBack()">
+                    <mat-icon>arrow_back_ios</mat-icon>
+                </button>
+                <div class="p-t-10">
+                    <h2>{{proveedor.nombre}} </h2>
+                </div>
+            </div>
+            <div class="body">
+                <div class="table-container">
+                    <table class="table full-width tabla-generica">
+                        <tbody>
+                            <tr>
+                                <td><span class="mat-subtitle-2">Nombre: </span> {{proveedor.nombre}}</td>
+                                <td><span class="mat-subtitle-2">NIT: </span> {{proveedor.nit}}</td>
+                            </tr>
+                            <tr>
+                                <td><span class="mat-subtitle-2">Dirección: </span> {{ proveedor.direccion }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="body">
+                <h5>Información de Contacto</h5>
+            </div>
+            <div class="body">
+                <div class="table-container">
+                    <table class="table full-width tabla-generica">
+                        <tbody>
+                            <tr>
+                                <td><span class="mat-subtitle-2">Contacto: </span> {{proveedor.contacto}}</td>
+                                <td><span class="mat-subtitle-2">Celular: </span> {{ proveedor.celular }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+          </div>
+        </div>
+        <!-- <pre>{{ proveedor | json }}</pre> -->
+    </div>
+</section>

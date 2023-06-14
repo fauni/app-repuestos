@@ -3,9 +3,11 @@ import { AlmacenService } from '../almacen.service';
 import { Almacen } from '../models/almacen.model';
 import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroyAdapter';
 import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { DataSourceAlmacen } from './data-source';
 import { RequestStatus } from '../../core/models/request-status.model';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteComponent } from '../delete/delete.component';
 
 @Component({
   selector: 'app-lista',
@@ -26,7 +28,8 @@ export class ListaComponent extends UnsubscribeOnDestroyAdapter implements OnIni
   constructor(
     private almacenService: AlmacenService,
     private router: Router,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    public dialog: MatDialog,
   ){
     super()
   }
@@ -69,6 +72,34 @@ export class ListaComponent extends UnsubscribeOnDestroyAdapter implements OnIni
   }
 
   eliminarAlmacen(almacen: Almacen): void {
-    
+    const dialogRef = this.dialog.open(DeleteComponent, {
+      data: almacen
+    });
+
+    this.subs.sink = dialogRef.afterClosed().subscribe((result)=> {
+      if (result === 1) {
+        this.refresh();
+        this.showNotification(
+          'snackbar-danger',
+          'Se elimino correctamente...!!!',
+          'bottom',
+          'center'
+        );
+      }
+    })
+  }
+
+  showNotification(
+    colorName: string,
+    text: string,
+    placementFrom: MatSnackBarVerticalPosition,
+    placementAlign: MatSnackBarHorizontalPosition
+  ) {
+    this.snackBar.open(text, '', {
+      duration: 2000,
+      verticalPosition: placementFrom,
+      horizontalPosition: placementAlign,
+      panelClass: colorName,
+    });
   }
 }

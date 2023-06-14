@@ -30,5 +30,9 @@ export class ProveedorService extends UnsubscribeOnDestroyAdapter{
   modificarProveedor(id:number, data: Proveedor){
     return this.httpClient.put(`${this.API}/update/${id}`, data);
   }
+
+  eliminarProveedor(id:number){
+    return this.httpClient.delete(`${this.API}/delete/${id}`);
+  }
 }
 

@@ -10,13 +10,15 @@ import { ComponentsModule } from '../shared/components/components.module';
 import { SharedModule } from '../shared/shared.module';
 import { ProveedorService } from './proveedor.service';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
+import { DeleteComponent } from './delete/delete.component';
 
 
 @NgModule({
   declarations: [
     ListaComponent,
     NuevoComponent,
-    DetalleComponent
+    DetalleComponent,
+    DeleteComponent
   ],
   imports: [
     CommonModule,

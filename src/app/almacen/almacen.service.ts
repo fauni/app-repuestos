@@ -31,4 +31,8 @@ export class AlmacenService extends UnsubscribeOnDestroyAdapter{
   modificarAlmacen(almacenId:number, data: Almacen){
     return this.httpClient.put(`${this.API}/update/${almacenId}`, data);
   }
+
+  eliminarAlmacen(id:number){
+    return this.httpClient.delete(`${this.API}/delete/${id}`);
+  }
 }

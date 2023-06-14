@@ -12,6 +12,7 @@ import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 import { DetalleComponent } from './detalle/detalle.component';
 import { StockComponent } from './stock/stock.component';
 import { StockLoteComponent } from './stock-lote/stock-lote.component';
+import { DeleteComponent } from './delete/delete.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { StockLoteComponent } from './stock-lote/stock-lote.component';
     NuevoComponent,
     DetalleComponent,
     StockComponent,
-    StockLoteComponent
+    StockLoteComponent,
+    DeleteComponent
   ],
   imports: [
     CommonModule,

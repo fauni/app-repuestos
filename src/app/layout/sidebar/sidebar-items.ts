@@ -44,7 +44,7 @@ export const ROUTES: RouteInfo[] = [
         submenu: [],
       },
       {
-        path: "almacen/nuevo",
+        path: "almacen/nuevo/0",
         title: "MENUITEMS.ALMACEN.LIST.AGREGARALMACEN",
         iconType: "",
         icon: "",
@@ -100,7 +100,7 @@ export const ROUTES: RouteInfo[] = [
         submenu: [],
       },
       {
-        path: "producto/nuevo",
+        path: "producto/nuevo/0",
         title: "MENUITEMS.PRODUCTO.LIST.AGREGARPRODUCTO",
         iconType: "",
         icon: "",

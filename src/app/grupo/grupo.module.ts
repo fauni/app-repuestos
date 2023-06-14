@@ -9,13 +9,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ComponentsModule } from '../shared/components/components.module';
 import { SharedModule } from '../shared/shared.module';
 import { GrupoService } from './grupo.service';
+import { DeleteComponent } from './delete/delete.component';
 
 
 @NgModule({
   declarations: [
     ListaComponent,
     NuevoComponent,
-    DetalleComponent
+    DetalleComponent,
+    DeleteComponent
   ],
   imports: [
     CommonModule,

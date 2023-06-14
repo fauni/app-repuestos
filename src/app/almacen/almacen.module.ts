@@ -9,13 +9,15 @@ import { SharedModule } from '../shared/shared.module';
 import { AlmacenService } from './almacen.service';
 import { DetalleComponent } from './detalle/detalle.component';
 import { NuevoComponent } from './nuevo/nuevo.component';
+import { DeleteComponent } from './delete/delete.component';
 
 
 @NgModule({
   declarations: [
     ListaComponent,
     DetalleComponent,
-    NuevoComponent
+    NuevoComponent,
+    DeleteComponent
   ],
   imports: [
     CommonModule,

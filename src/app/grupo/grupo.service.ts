@@ -30,5 +30,9 @@ export class GrupoService extends UnsubscribeOnDestroyAdapter{
   modificarGrupo(id:number, data: Grupo){
     return this.httpClient.put(`${this.API}/update/${id}`, data);
   }
+
+  eliminarGrupo(id:number){
+    return this.httpClient.delete(`${this.API}/delete/${id}`);
+  }
 }
 

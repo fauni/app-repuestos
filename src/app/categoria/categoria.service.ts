@@ -31,4 +31,8 @@ export class CategoriaService extends UnsubscribeOnDestroyAdapter{
   modificarCategoria(id:number, data: Categoria){
     return this.httpClient.put(`${this.API}/update/${id}`, data);
   }
+
+  eliminarCategoria(id:number){
+    return this.httpClient.delete(`${this.API}/delete/${id}`);
+  }
 }

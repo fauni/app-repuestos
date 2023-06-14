@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Producto } from '../models/producto.model';
 import { ProductoService } from '../producto.service';
 import { UnsubscribeOnDestroyAdapter } from '../../shared/UnsubscribeOnDestroyAdapter';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { DataSourceProducto } from './data-source';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteComponent } from '../delete/delete.component';
 
 
 @Component({
@@ -24,7 +26,8 @@ export class ListaComponent extends UnsubscribeOnDestroyAdapter implements OnIni
   constructor(
     private productoService: ProductoService,
     private router: Router,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    public dialog: MatDialog,
   ){
     super()
   }
@@ -76,8 +79,36 @@ export class ListaComponent extends UnsubscribeOnDestroyAdapter implements OnIni
     this.router.navigate(['/producto/nuevo/', row.id]);
   }
 
-  eliminarProducto(row: Producto){
-    console.log(row);
+  eliminarProducto(producto: Producto): void {
+    const dialogRef = this.dialog.open(DeleteComponent, {
+      data: producto
+    });
+
+    this.subs.sink = dialogRef.afterClosed().subscribe((result)=> {
+      if (result === 1) {
+        this.refresh();
+        this.showNotification(
+          'snackbar-danger',
+          'Se elimino correctamente...!!!',
+          'bottom',
+          'center'
+        );
+      }
+    })
+  }
+
+  showNotification(
+    colorName: string,
+    text: string,
+    placementFrom: MatSnackBarVerticalPosition,
+    placementAlign: MatSnackBarHorizontalPosition
+  ) {
+    this.snackBar.open(text, '', {
+      duration: 2000,
+      verticalPosition: placementFrom,
+      horizontalPosition: placementAlign,
+      panelClass: colorName,
+    });
   }
 
   nuevoProducto(){

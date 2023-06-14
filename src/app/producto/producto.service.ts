@@ -41,6 +41,10 @@ export class ProductoService extends UnsubscribeOnDestroyAdapter{
     return this.httpClient.put(`${this.API}/producto/update/${idProducto}`, data);
   }
 
+  eliminarProducto(id:number){
+    return this.httpClient.delete(`${this.API}/producto/delete/${id}`);
+  }
+
   //#region PRODUCTO LOTE
   getLotesPorProducto(id_producto: number):Observable<ProductoLote[]> {
     return this.httpClient.get<ProductoLote[]>(`${this.API}/producto-lote/lista/${id_producto}`);

@@ -5,7 +5,9 @@ import { DataSourceCategoria } from './data-source';
 import { RequestStatus } from 'src/app/core/models/request-status.model';
 import { CategoriaService } from '../categoria.service';
 import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteComponent } from '../delete/delete.component';
 
 @Component({
   selector: 'app-lista',
@@ -26,7 +28,8 @@ export class ListaComponent extends UnsubscribeOnDestroyAdapter implements OnIni
   constructor(
     private categoriaService: CategoriaService,
     private router: Router,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    public dialog: MatDialog,
   ){
     super()
   }
@@ -69,7 +72,35 @@ export class ListaComponent extends UnsubscribeOnDestroyAdapter implements OnIni
   }
 
   eliminarCategoria(categoria: Categoria): void {
-    
+    const dialogRef = this.dialog.open(DeleteComponent, {
+      data: categoria
+    });
+
+    this.subs.sink = dialogRef.afterClosed().subscribe((result)=> {
+      if (result === 1) {
+        this.refresh();
+        this.showNotification(
+          'snackbar-danger',
+          'Se elimino correctamente...!!!',
+          'bottom',
+          'center'
+        );
+      }
+    })
+  }
+
+  showNotification(
+    colorName: string,
+    text: string,
+    placementFrom: MatSnackBarVerticalPosition,
+    placementAlign: MatSnackBarHorizontalPosition
+  ) {
+    this.snackBar.open(text, '', {
+      duration: 2000,
+      verticalPosition: placementFrom,
+      horizontalPosition: placementAlign,
+      panelClass: colorName,
+    });
   }
 }
 
